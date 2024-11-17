@@ -1,0 +1,15 @@
+.small-button {
+    padding: 0;  /* Remove padding to make the button as tight as possible */
+    margin: 0.01em;   /* Remove any margin */
+    font-size: 12px;  /* Optional: Adjust text size to make it smaller */
+    border: 1px solid #ccc;  /* Optional: Define a thin border */
+    background: transparent; /* Optional: Set transparent background */
+    display: inline-block; /* Ensure it shrinks to fit text */
+    text-align: center; /* Center the text inside the button */
+    cursor: pointer; /* Make it clickable */
+}
+
+#letter-pair-grid {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+}

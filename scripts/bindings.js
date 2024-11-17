@@ -1,0 +1,1 @@
+const letterPairGrid = document.getElementById("letter-pair-grid");
