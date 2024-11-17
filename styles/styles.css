@@ -1,15 +1,38 @@
-.small-button {
-    padding: 0;  /* Remove padding to make the button as tight as possible */
-    margin: 0.01em;   /* Remove any margin */
-    font-size: 12px;  /* Optional: Adjust text size to make it smaller */
-    border: 1px solid #ccc;  /* Optional: Define a thin border */
-    background: transparent; /* Optional: Set transparent background */
-    display: inline-block; /* Ensure it shrinks to fit text */
-    text-align: center; /* Center the text inside the button */
-    cursor: pointer; /* Make it clickable */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
 }
 
 #letter-pair-grid {
     display: grid;
     grid-template-columns: repeat(24, 1fr);
+    grid-template-rows: repeat(24, 1fr);
+    gap: 1px;
+    width: 95vmin;
+    height: 95vmin;
+}
+
+.grid-button {
+    width: 100%;
+    height: 100%;
+    font-size: 0.6em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: background-color 0.3s;
+}
+
+.grid-button:hover {
+    background-color: #ddd;
 }
