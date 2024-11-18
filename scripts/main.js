@@ -1,4 +1,4 @@
-// fill letter pair grid
+// Fill letter pair grid
 const ALPHABET = "ABDEFGHIJKLMNOPQRSTUVWX";
 for(let letter1 of ALPHABET) {
     for(let letter2 of ALPHABET) {
@@ -16,3 +16,6 @@ for(let letter1 of ALPHABET) {
         letterPairGrid.appendChild(button);
     }
 }
+
+// Fill AnimCube
+AnimCube3("id=animcube-container&move=RUR'URU2R'&initrevmove=#");
