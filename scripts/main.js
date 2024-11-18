@@ -1,5 +1,5 @@
 // fill letter pair grid
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWX";
+const ALPHABET = "ABDEFGHIJKLMNOPQRSTUVWX";
 for(let letter1 of ALPHABET) {
     for(let letter2 of ALPHABET) {
         const button = document.createElement("button");
