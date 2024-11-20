@@ -8,12 +8,20 @@
 </head>
 <body>
     <div class="container">
-        <div id="letter-pair-grid">
-            <!-- Will be filled by one button for each letter pair -->
-        </div>
-        <div id="animcube-container">
-            <!-- Will be filled by the AnimCube -->
-        </div>
+        <header>
+            <div class="button-group">
+                <button class="toggle-btn active" id="corners-btn">Corners</button>
+                <button class="toggle-btn" id="edges-btn">Edges</button>
+            </div>
+        </header>
+        <main>
+            <div class="grid-container" id="letter-pair-grid">
+                <!-- Generate 23x23 grid of buttons with two-letter labels dynamically (example below) -->
+                <!-- <button class="grid-btn">AB</button> -->
+                <!-- Repeat for 23x23 buttons, each having a unique two-letter label -->
+            </div>
+            <div class="square-div" id="animcube-container"></div>
+        </main>
     </div>
 
     <script src="scripts/AnimCube3.js"></script>

@@ -5,7 +5,7 @@ for (let letter1 of ALPHABET) {
         const button = document.createElement("button");
         button.textContent = letter1 + letter2;
         //button.id = "dynamic-button";
-        button.classList.add("grid-button");
+        button.classList.add("grid-btn");
 
         // Optional: Add an event listener to the button
         /*button.addEventListener("click", function() {
