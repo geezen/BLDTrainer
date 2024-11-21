@@ -3,7 +3,7 @@ import json
 
 FILE_PATHS = (
     ("EDGE_COMMS", "Dylan's 3-Style Learning Sheet - UF Comms.tsv"),
-    ("EDGE_TYPE", "Dylan's 3-Style Learning Sheet - UF Types.tsv"),
+    ("EDGE_TYPES", "Dylan's 3-Style Learning Sheet - UF Types.tsv"),
     ("CORNER_COMMS", "Dylan's 3-Style Learning Sheet - UFR Comms.tsv"),
     ("CORNER_TYPES", "Dylan's 3-Style Learning Sheet - UFR Types.tsv")
 )

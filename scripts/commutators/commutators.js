@@ -484,7 +484,7 @@ const EDGE_COMMS = {
     "WX": "[D L F : [L' S L , F2']]",
     "XX": ""
 };
-const EDGE_TYPE = {
+const EDGE_TYPES = {
     "AA": "",
     "BA": "4-Mover",
     "DA": "4-Mover",
