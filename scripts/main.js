@@ -52,10 +52,12 @@ function selectPieceType(pieceType) {
 function selectLetterPair(letterPair) {
     letterPairButtons.forEach((btn, letterPair, map) => btn.classList.remove("active-btn"));
     letterPairButtons.get(letterPair).classList.add("active-btn");
+    const commutator = selectedPieceType.getComm(letterPair);
     const commTypeText = document.createTextNode(selectedPieceType.getCommType(letterPair));
-    const commutatorText = document.createTextNode(selectedPieceType.getComm(letterPair));
+    const commutatorText = document.createTextNode(commutator);
     commTypeOutput.replaceChildren(commTypeText);
     commutatorOutput.replaceChildren(commutatorText);
+    addAnimCube(commToMoves(commutator));
 }
 
 function forEachLetterPair(consumer) {
@@ -68,40 +70,41 @@ function forEachLetterPair(consumer) {
 }
 
 function commToMoves(comm) {
-    console.log(`raw comm: ${comm}`);
+    let result = "default/fail";
     comm = comm.replaceAll(/^ ?\[|]$/g, ''); // remove opening and closing brackts
     comm = comm.replace(/\(([A-Za-z'2 ]+)\)2/, "$1$1"); // expanding (...)2 parenthesis
-    console.log(`processed comm: ${comm}`);
 
     if (/^[A-Za-z' ]+$/.test(comm)) { // pure alg
-        return comm;
+        result = comm;
     } else if (/[A-Za-z2' ]+:/.test(comm)) { // has setup moves
         const matches = comm.match(/^([A-Za-z2' ]+):(.*)$/);
         const A = matches[1];
         const B = matches[2];
-        return A + commToMoves(B) + invertMoves(A);
+        result = A + commToMoves(B) + invertMoves(A);
     } else if (/[A-Za-z2' ]+,/.test(comm)) { // is commutator
         const matches = comm.match(/^([A-Za-z2' ]+),(.*)$/);
         const A = matches[1];
         const B = matches[2];
-        return A + B + invertMoves(A) + invertMoves(B);
+        result = A + B + invertMoves(A) + invertMoves(B);
     }
-    return "default/fail";
+    //console.log(`comm: ${comm} becoms "${result}"`);
+    return result;
 }
 
 function invertMoves(moves) {
     let result = "";
     for (let move of moves.matchAll(/[A-Za-z]['2]?/g)) {
         if (move[0].length == 1) { // clockwise
-            result += `${move[0]}'`;
+            result = `${move[0]}'` + result;
         } else if (/[A-Za-z]'/.test(move[0])) { // anti-clockwise
-            result += move[0].charAt(0);
+            result = move[0].charAt(0) + result;
         } else { // 180 degree
-            result += move[0];
+            result = move[0] + result;
         }
     }
     return result;
 }
 
-// Fill AnimCube
-AnimCube3("id=anim-cube&move=RUR'URU2R'&initrevmove=#&edit=0");
+function addAnimCube(moves) {
+    AnimCube3(`id=anim-cube&move=${moves}&initrevmove=#&edit=0`);
+}
