@@ -1,24 +1,33 @@
+// Constants
+const ALL_LETTERS = "ABDEFGHIJKLMNOPQRSTUVWX";
+
 // Fill letter pair grid
-const ALPHABET = "ABDEFGHIJKLMNOPQRSTUVWX";
-for (let letter1 of ALPHABET) {
-    for (let letter2 of ALPHABET) {
-        const button = document.createElement("button");
-        button.textContent = letter1 + letter2;
-        //button.id = "dynamic-button";
-        button.classList.add("grid-btn");
-        button.classList.add("btn");
+forEachLetterPair(letterPair => {
+    const button = document.createElement("button");
+    button.textContent = letterPair;
+    //button.id = "dynamic-button";
+    button.classList.add("grid-btn");
+    button.classList.add("btn");
 
-        // Optional: Add an event listener to the button
-        /*button.addEventListener("click", function() {
-            alert("Button clicked!");
-        });*/
+    // Optional: Add an event listener to the button
+    /*button.addEventListener("click", function() {
+        alert("Button clicked!");
+    });*/
 
-        // Step 3: Append the button to a parent element in the DOM
-        letterPairGrid.appendChild(button);
+    // Step 3: Append the button to a parent element in the DOM
+    letterPairGrid.appendChild(button);
+});
+
+// Functions
+function forEachLetterPair(consumer) {
+    for (let letter1 of ALL_LETTERS) {
+        for (let letter2 of ALL_LETTERS) {
+            const letterPair = letter1 + letter2;
+            consumer(letterPair);
+        }
     }
 }
 
-// Commutator to moves
 function commToMoves(comm) {
     console.log(`raw comm: ${comm}`);
     comm = comm.replaceAll(/^ ?\[|]$/g, ''); // remove opening and closing brackts
