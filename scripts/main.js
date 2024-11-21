@@ -14,9 +14,7 @@ forEachLetterPair(letterPair => {
     button.classList.add("btn");
 
     // Optional: Add an event listener to the button
-    /*button.addEventListener("click", function() {
-        alert("Button clicked!");
-    });*/
+    button.addEventListener("click", () => selectLetterPair(letterPair));
 
     // Step 3: Append the button to a parent element in the DOM
     letterPairContainer.appendChild(button);
@@ -27,6 +25,7 @@ btnCorners.addEventListener("click", () => selectPieceType(CORNERS));
 btnEdges.addEventListener("click", () => selectPieceType(EDGES));
 
 selectPieceType(CORNERS);
+selectLetterPair("AB");
 
 // Functions
 function selectPieceType(pieceType) {
@@ -45,6 +44,11 @@ function selectPieceType(pieceType) {
             button.setAttribute("disabled", "disabled");
         }
     });
+}
+
+function selectLetterPair(letterPair) {
+    letterPairButtons.forEach((btn, letterPair, map) => btn.classList.remove("active-btn"));
+    letterPairButtons.get(letterPair).classList.add("active-btn");
 }
 
 function forEachLetterPair(consumer) {

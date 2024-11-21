@@ -25,6 +25,8 @@ body {
 
 .btn {
     cursor: pointer;
+    transition: background-color 0.3s;
+    transition: color 0.3s;
 }
 
 .main-container {
@@ -60,7 +62,6 @@ body {
     font-size: 0.6em;
     border: 0.5px solid #ccc;
     background-color: #fff;
-    transition: background-color 0.3s;
 }
 
 .active-btn {
