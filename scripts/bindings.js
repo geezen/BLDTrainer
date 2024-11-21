@@ -1,1 +1,1 @@
-const letterPairGrid = document.getElementById("letter-pair-grid");
+const letterPairGrid = document.getElementById("letter-pair-container");

@@ -6,6 +6,7 @@ for (let letter1 of ALPHABET) {
         button.textContent = letter1 + letter2;
         //button.id = "dynamic-button";
         button.classList.add("grid-btn");
+        button.classList.add("btn");
 
         // Optional: Add an event listener to the button
         /*button.addEventListener("click", function() {
@@ -55,4 +56,4 @@ function invertMoves(moves) {
 }
 
 // Fill AnimCube
-AnimCube3("id=animcube-container&move=RUR'URU2R'&initrevmove=#");
+AnimCube3("id=anim-cube&move=RUR'URU2R'&initrevmove=#&edit=0");

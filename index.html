@@ -7,21 +7,21 @@
     <link href="styles/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="button-group">
-                <button class="toggle-btn active" id="corners-btn">Corners</button>
-                <button class="toggle-btn" id="edges-btn">Edges</button>
+    <div class="root-container">
+        <div class="header">
+            <button type="button" class="piece-btn active-btn btn" id="btn-corners">Corners</button>
+            <button type="button" class="piece-btn btn" id="btn-edges">Edges</button>
+        </div>
+        <div class="main-container">
+            <div id="letter-pair-container">
+                <!-- Dynamically filled-->
             </div>
-        </header>
-        <main>
-            <div class="grid-container" id="letter-pair-grid">
-                <!-- Generate 23x23 grid of buttons with two-letter labels dynamically (example below) -->
-                <!-- <button class="grid-btn">AB</button> -->
-                <!-- Repeat for 23x23 buttons, each having a unique two-letter label -->
+            <div class="cube-container">
+                <div class="output-text" id="comm-type">[Comm Type]</div>
+                <div class="output-text" id="comm">[Comm]</div>
+                <div id="anim-cube"></div>
             </div>
-            <div class="square-div" id="animcube-container"></div>
-        </main>
+        </div>
     </div>
 
     <script src="scripts/AnimCube3.js"></script>
