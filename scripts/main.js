@@ -1,6 +1,10 @@
 // Constants
 const ALL_LETTERS = "ABDEFGHIJKLMNOPQRSTUVWX";
 
+// Variables
+let pieceType;
+let letterPairButtons = new Map();
+
 // Fill letter pair grid
 forEachLetterPair(letterPair => {
     const button = document.createElement("button");
@@ -15,10 +19,34 @@ forEachLetterPair(letterPair => {
     });*/
 
     // Step 3: Append the button to a parent element in the DOM
-    letterPairGrid.appendChild(button);
+    letterPairContainer.appendChild(button);
+    letterPairButtons.set(letterPair, button);
 });
 
+btnCorners.addEventListener("click", () => selectPieceType(CORNERS));
+btnEdges.addEventListener("click", () => selectPieceType(EDGES));
+
+selectPieceType(CORNERS);
+
 // Functions
+function selectPieceType(pieceType) {
+    // Set piece button active
+    for (let btn of document.getElementsByClassName("piece-btn")) {
+        btn.classList.remove("active-btn");
+    }
+    pieceType.getPieceBtn().classList.add("active-btn");
+
+    // Set letter pair buttons disabled
+    forEachLetterPair(letterPair => {
+        const button = letterPairButtons.get(letterPair);
+        const comm = pieceType.getComm(letterPair);
+        button.removeAttribute("disabled");
+        if (comm == undefined || comm.length == 0) {
+            button.setAttribute("disabled", "disabled");
+        }
+    });
+}
+
 function forEachLetterPair(consumer) {
     for (let letter1 of ALL_LETTERS) {
         for (let letter2 of ALL_LETTERS) {
