@@ -2,7 +2,7 @@
 const ALL_LETTERS = "ABDEFGHIJKLMNOPQRSTUVWX";
 
 // Variables
-let pieceType;
+let selectedPieceType;
 let letterPairButtons = new Map();
 
 // Fill letter pair grid
@@ -44,11 +44,18 @@ function selectPieceType(pieceType) {
             button.setAttribute("disabled", "disabled");
         }
     });
+
+    // Set variable
+    selectedPieceType = pieceType;
 }
 
 function selectLetterPair(letterPair) {
     letterPairButtons.forEach((btn, letterPair, map) => btn.classList.remove("active-btn"));
     letterPairButtons.get(letterPair).classList.add("active-btn");
+    const commTypeText = document.createTextNode(selectedPieceType.getCommType(letterPair));
+    const commutatorText = document.createTextNode(selectedPieceType.getComm(letterPair));
+    commTypeOutput.replaceChildren(commTypeText);
+    commutatorOutput.replaceChildren(commutatorText);
 }
 
 function forEachLetterPair(consumer) {

@@ -5,6 +5,10 @@ const CORNERS = {
 
     getComm(letterPair) {
         return CORNER_COMMS[letterPair];
+    },
+
+    getCommType(letterPair) {
+        return CORNER_TYPES[letterPair];
     }
 };
 
@@ -15,5 +19,9 @@ const EDGES = {
 
     getComm(letterPair) {
         return EDGE_COMMS[letterPair];
+    },
+
+    getCommType(letterPair) {
+        return EDGE_TYPES[letterPair];
     }
 };
