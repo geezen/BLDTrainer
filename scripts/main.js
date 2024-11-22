@@ -2,70 +2,75 @@
 const ALL_LETTERS = "ABDEFGHIJKLMNOPQRSTUVWX";
 
 // Variables
-let selectedPieceType;
+let currentPieceType;
 let letterPairButtons = new Map();
 
 // Fill letter pair grid
 forEachLetterPair(letterPair => {
     const button = document.createElement("button");
     button.textContent = letterPair;
-    //button.id = "dynamic-button";
-    button.classList.add("grid-btn");
-    button.classList.add("btn");
-
-    // Optional: Add an event listener to the button
+    button.classList.add("grid-btn", "btn");
     button.addEventListener("click", () => selectLetterPair(letterPair));
-
-    // Step 3: Append the button to a parent element in the DOM
     letterPairContainer.appendChild(button);
     letterPairButtons.set(letterPair, button);
 });
 
+// Add event listerners
 btnCorners.addEventListener("click", () => selectPieceType(CORNERS));
 btnEdges.addEventListener("click", () => selectPieceType(EDGES));
 
+// Default setup
 selectPieceType(CORNERS);
 selectLetterPair("AB");
 
 // Functions
 function selectPieceType(pieceType) {
-    // Set piece button active
-    for (let btn of document.getElementsByClassName("piece-btn")) {
-        btn.classList.remove("active-btn");
-    }
-    pieceType.getPieceBtn().classList.add("active-btn");
+    currentPieceType = pieceType;
+    setActivePieceBtn();
+    disableCorrectLetterPairBtns();
+    selectLetterPair("AB");
+}
 
-    // Set letter pair buttons disabled
+function disableCorrectLetterPairBtns() {
     forEachLetterPair(letterPair => {
         const button = letterPairButtons.get(letterPair);
-        const comm = pieceType.getComm(letterPair);
-        button.removeAttribute("disabled");
+        const comm = currentPieceType.getComm(letterPair);
         if (comm == undefined || comm.length < 2) {
             button.setAttribute("disabled", "disabled");
+        } else {
+            button.removeAttribute("disabled");
         }
     });
+}
 
-    // Set variable
-    selectedPieceType = pieceType;
-    selectLetterPair("AB");
+function setActivePieceBtn() {
+    const activePieceBtn = currentPieceType.getPieceBtn();
+    for (let btn of document.getElementsByClassName("piece-btn")) {
+        if (btn === activePieceBtn) {
+            btn.classList.add("active-btn");
+        } else {
+            btn.classList.remove("active-btn");
+        }
+    }
 }
 
 function selectLetterPair(letterPair) {
     letterPairButtons.forEach((btn, letterPair, map) => btn.classList.remove("active-btn"));
     letterPairButtons.get(letterPair).classList.add("active-btn");
-    const commutator = selectedPieceType.getComm(letterPair);
-    const commTypeText = document.createTextNode(selectedPieceType.getCommType(letterPair));
+    const commType = currentPieceType.getCommType(letterPair);
+    const commutator = currentPieceType.getComm(letterPair);
+    const commTypeText = document.createTextNode(commType);
     const commutatorText = document.createTextNode(commutator);
     commTypeOutput.replaceChildren(commTypeText);
     commutatorOutput.replaceChildren(commutatorText);
     addAnimCube(commToMoves(commutator));
 }
 
-function forEachLetterPair(consumer) {
+function forEachLetterPair(callback) {
     for (let letter1 of ALL_LETTERS) {
         for (let letter2 of ALL_LETTERS) {
             const letterPair = letter1 + letter2;
-            consumer(letterPair);
+            callback(letterPair);
         }
     }
 }
