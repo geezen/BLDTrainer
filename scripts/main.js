@@ -40,13 +40,14 @@ function selectPieceType(pieceType) {
         const button = letterPairButtons.get(letterPair);
         const comm = pieceType.getComm(letterPair);
         button.removeAttribute("disabled");
-        if (comm == undefined || comm.length == 0) {
+        if (comm == undefined || comm.length < 2) {
             button.setAttribute("disabled", "disabled");
         }
     });
 
     // Set variable
     selectedPieceType = pieceType;
+    selectLetterPair("AB");
 }
 
 function selectLetterPair(letterPair) {
@@ -80,7 +81,7 @@ function commToMoves(comm) {
         const matches = comm.match(/^([A-Za-z2' ]+):(.*)$/);
         const A = matches[1];
         const B = matches[2];
-        result = A + commToMoves(B) + invertMoves(A);
+        result = "{Setup}" + A + ".{}" + commToMoves(B) + ".{Undo setup}" + invertMoves(A);
     } else if (/[A-Za-z2' ]+,/.test(comm)) { // is commutator
         const matches = comm.match(/^([A-Za-z2' ]+),(.*)$/);
         const A = matches[1];
@@ -106,5 +107,5 @@ function invertMoves(moves) {
 }
 
 function addAnimCube(moves) {
-    AnimCube3(`id=anim-cube&move=${moves}&initrevmove=#&edit=0`);
+    AnimCube3(`id=anim-cube&bgcolor=ffffff&borderwidth=3&textsize=24&hint=15&scale=6&align=20&position=lluuu&move=${moves}&initrevmove=#&colorscheme=wygbor&edit=0`);
 }
