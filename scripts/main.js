@@ -17,11 +17,12 @@ forEachLetterPair(letterPair => {
 
 // Add event listerners
 btnCorners.addEventListener("click", () => selectPieceType(CORNERS));
+btnCorners.addEventListener("touchstart", () => selectPieceType(CORNERS));
 btnEdges.addEventListener("click", () => selectPieceType(EDGES));
+btnEdges.addEventListener("touchstart", () => selectPieceType(EDGES));
 
 // Default setup
 selectPieceType(CORNERS);
-selectLetterPair("AB");
 
 // Functions
 function selectPieceType(pieceType) {
