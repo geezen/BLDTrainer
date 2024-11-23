@@ -1118,7 +1118,7 @@ const CORNER_COMMS = {
     "VH": "[R U' D R' : [U2 , R' D R]]",
     "WH": "[R D' R' : [U , R' D R]]",
     "XH": "",
-    "AI": "[r D' U : [R D R' , U2]]",
+    "AI": "[l' D' U : [R D R' , U2]]",
     "BI": "[R2 U' : [D' , R U R']]",
     "DI": "",
     "EI": "[l' U : [R D' R' , U2]]",
