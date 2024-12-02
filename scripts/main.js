@@ -77,11 +77,11 @@ function forEachLetterPair(callback) {
 }
 
 function commToMoves(comm) {
-    let result = "default/fail";
+    let result = "";
     comm = comm.replaceAll(/^ ?\[|]$/g, ''); // remove opening and closing brackts
     comm = comm.replace(/\(([A-Za-z'2 ]+)\)2/, "$1$1"); // expanding (...)2 parenthesis
 
-    if (/^[A-Za-z' ]+$/.test(comm)) { // pure alg
+    if (/^[A-Za-z2' ]+$/.test(comm)) { // pure alg
         result = comm;
     } else if (/[A-Za-z2' ]+:/.test(comm)) { // has setup moves
         const matches = comm.match(/^([A-Za-z2' ]+):(.*)$/);
