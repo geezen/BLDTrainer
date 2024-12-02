@@ -1,6 +1,3 @@
-// Constants
-const ALL_LETTERS = "ABDEFGHIJKLMNOPQRSTUVWX";
-
 // Variables
 let currentPieceType;
 let letterPairButtons = new Map();
@@ -33,69 +30,75 @@ function selectPieceType(pieceType) {
 }
 
 function disableCorrectLetterPairBtns() {
-    forEachLetterPair(letterPair => {
-        const button = letterPairButtons.get(letterPair);
+    letterPairButtons.forEach((btn, letterPair) => {
         const comm = currentPieceType.getComm(letterPair);
-        if (comm == undefined || comm.length < 2) {
-            button.setAttribute("disabled", "disabled");
-        } else {
-            button.removeAttribute("disabled");
-        }
+        btn.disabled = comm == undefined || comm.length < 2;
     });
 }
 
 function setActivePieceBtn() {
     const activePieceBtn = currentPieceType.getPieceBtn();
     for (let btn of document.getElementsByClassName("piece-btn")) {
-        if (btn === activePieceBtn) {
-            btn.classList.add("active-btn");
-        } else {
-            btn.classList.remove("active-btn");
-        }
+        btn.classList.toggle("active-btn", btn === activePieceBtn);
     }
 }
 
 function selectLetterPair(letterPair) {
-    letterPairButtons.forEach((btn, letterPair, map) => btn.classList.remove("active-btn"));
-    letterPairButtons.get(letterPair).classList.add("active-btn");
+    letterPairButtons.forEach((btn, btnLetterPair) => btn.classList.toggle("active-btn", btnLetterPair == letterPair));
+
     const commType = currentPieceType.getCommType(letterPair);
     const commutator = currentPieceType.getComm(letterPair);
     const commTypeText = document.createTextNode(commType);
     const commutatorText = document.createTextNode(commutator);
+
     commTypeOutput.replaceChildren(commTypeText);
     commutatorOutput.replaceChildren(commutatorText);
+
     addAnimCube(commToMoves(commutator));
 }
 
 function forEachLetterPair(callback) {
-    for (let letter1 of ALL_LETTERS) {
-        for (let letter2 of ALL_LETTERS) {
+    const allLetters = "ABDEFGHIJKLMNOPQRSTUVWX";
+    for (let letter1 of allLetters) {
+        for (let letter2 of allLetters) {
             const letterPair = letter1 + letter2;
             callback(letterPair);
         }
     }
 }
 
-function commToMoves(comm) {
+function commToMoves(rawComm) {
     let result = "";
-    comm = comm.replaceAll(/^ ?\[|]$/g, ''); // remove opening and closing brackts
-    comm = comm.replace(/\(([A-Za-z'2 ]+)\)2/, "$1$1"); // expanding (...)2 parenthesis
+    const comm = cleanComm(rawComm);
 
-    if (/^[A-Za-z2' ]+$/.test(comm)) { // pure alg
+    if (isPureAlg(comm)) {
         result = comm;
-    } else if (/[A-Za-z2' ]+:/.test(comm)) { // has setup moves
-        const matches = comm.match(/^([A-Za-z2' ]+):(.*)$/);
-        const A = matches[1];
-        const B = matches[2];
-        result = "{Setup}" + A + ".{}" + commToMoves(B) + ".{Undo setup}" + invertMoves(A);
-    } else if (/[A-Za-z2' ]+,/.test(comm)) { // is commutator
-        const matches = comm.match(/^([A-Za-z2' ]+),(.*)$/);
-        const A = matches[1];
-        const B = matches[2];
-        result = A + B + invertMoves(A) + invertMoves(B);
+    } else if (hasSetupMoves(comm)) {
+        const [A, B] = comm.match(/^([A-Za-z2' ]+):(.*)$/).slice(1);
+        result = `{Setup}${A}.{}${commToMoves(B)}.{Undo setup}${invertMoves(A)}`;
+    } else if (isCommutator(comm)) {
+        const [A, B] = comm.match(/^([A-Za-z2' ]+),(.*)$/).slice(1);
+        result = `${A}${B}${invertMoves(A)}${invertMoves(B)}`;
     }
     //console.log(`comm: ${comm} becoms "${result}"`);
     return result;
+}
+
+function cleanComm(comm) {
+    return comm.replaceAll(/^ ?\[|]$/g, '') // remove opening and closing brackts
+               .replace(/\(([A-Za-z'2 ]+)\)2/, "$1$1"); // expanding (...)2 parenthesis
+}
+
+function isCommutator(comm) {
+    return /[A-Za-z2' ]+,/.test(comm);
+}
+
+function hasSetupMoves(comm) {
+    return /[A-Za-z2' ]+:/.test(comm);
+}
+
+function isPureAlg(comm) {
+    return /^[A-Za-z2' ]+$/.test(comm);
 }
 
 function invertMoves(moves) {
